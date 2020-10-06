@@ -6,6 +6,9 @@ inputs:
   github_token:
     description: 'Token for the repo. Can be passed in using $\{{ secrets.GITHUB_TOKEN }}'
     required: true
+branding:
+  icon: 'git-commit'
+  color: 'purple'
 outputs:
   version: # output will be available to future steps
     description: "The generated version to output"

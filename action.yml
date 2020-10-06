@@ -1,17 +1,33 @@
 name: Standar version action
 description: Bump version create changelog and tag version then push back to github
 runs:
-  using: node12
-  main: dist/index.js
+  using: docker
+  image: Dockerfile
 branding:
   icon: git-commit
   color: purple
 inputs:
+  dry_run:
+    description: "Run without creating commit, output to stdout"
+    required: false
   prerelease:
-    description: set if prerelease or not
+    description: "Set as prerelease version"
+    required: false
+  changelog:
+    description: "Create changelog when bumping the version"
+    default: "true"
+    required: false
   github_token:
-    description: Token for the repo. Can be passed in using $\{{ secrets.GITHUB_TOKEN }}
+    description: 'Token for the repo. Can be passed in using $\{{ secrets.GITHUB_TOKEN }}'
     required: true
+  repository:
+    description: "Repository name to push. Default or empty value represents current github repository (${GITHUB_REPOSITORY})"
+    default: ""
+    required: false
+  branch:
+    description: "Destination branch to push changes"
+    required: false
+    default: "master"
 outputs:
   version:
     description: The generated version to output

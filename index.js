@@ -14,12 +14,14 @@ async function run() {
     if (prerelease) {
       options = options + `--prerelease ${prerelease} `;
     }
-    core.info("Running standar version");
+    core.info(`Running standar version ${options}`);
     await exec(`npx standard-version ${options}`);
     core.info("Configuring git user and email...");
     await exec('git config --local user.email "action@github.com"');
     await exec('git config --local user.name "GitHub Action"');
-    core.info("Pushing to branch...");
+    core.info(
+      `Pushing into ${process.env.GITHUB_REPOSITORY} to branch ${process.env.GITHUB_REF}`
+    );
     const remoteRepo = `https://${process.env.GITHUB_ACTOR}:${githubToken}@github.com/${process.env.GITHUB_REPOSITORY}.git`;
     await exec(
       `git push "${remoteRepo}" HEAD:${process.env.GITHUB_REF} --follow-tags --tags`

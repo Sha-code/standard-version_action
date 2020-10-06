@@ -75,12 +75,14 @@ async function run() {
     if (prerelease) {
       options = options + `--prerelease ${prerelease} `;
     }
-    core.info("Running standar version");
+    core.info(`Running standar version ${options}`);
     await exec(`npx standard-version ${options}`);
     core.info("Configuring git user and email...");
     await exec('git config --local user.email "action@github.com"');
     await exec('git config --local user.name "GitHub Action"');
-    core.info("Pushing to branch...");
+    core.info(
+      `Pushing into ${process.env.GITHUB_REPOSITORY} to branch ${process.env.GITHUB_REF}`
+    );
     const remoteRepo = `https://${process.env.GITHUB_ACTOR}:${githubToken}@github.com/${process.env.GITHUB_REPOSITORY}.git`;
     await exec(
       `git push "${remoteRepo}" HEAD:${process.env.GITHUB_REF} --follow-tags --tags`
@@ -443,7 +445,7 @@ module.exports = require("path");
 /***/ 731:
 /***/ (function(module) {
 
-module.exports = {"name":"javascript-action","version":"1.0.0","description":"JavaScript Action Template","main":"index.js","scripts":{"lint":"eslint .","prepare":"ncc build index.js -o dist --source-map","test":"jest","all":"npm run lint && npm run prepare && npm run test"},"repository":{"type":"git","url":"git+https://github.com/actions/javascript-action.git"},"keywords":["GitHub","Actions","JavaScript"],"author":"","license":"MIT","bugs":{"url":"https://github.com/actions/javascript-action/issues"},"homepage":"https://github.com/actions/javascript-action#readme","dependencies":{"@actions/core":"^1.1.1"},"devDependencies":{"@zeit/ncc":"^0.22.3","eslint":"^7.4.0","jest":"^26.1.0"}};
+module.exports = {"name":"javascript-action","version":"1.1.0","description":"JavaScript Action Template","main":"index.js","scripts":{"lint":"eslint .","prepare":"ncc build index.js -o dist --source-map","test":"jest","all":"npm run lint && npm run prepare && npm run test"},"repository":{"type":"git","url":"git+https://github.com/actions/javascript-action.git"},"keywords":["GitHub","Actions","JavaScript"],"author":"","license":"MIT","bugs":{"url":"https://github.com/actions/javascript-action/issues"},"homepage":"https://github.com/actions/javascript-action#readme","dependencies":{"@actions/core":"^1.1.1"},"devDependencies":{"@zeit/ncc":"^0.22.3","eslint":"^7.4.0","jest":"^26.1.0"}};
 
 /***/ })
 

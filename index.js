@@ -1,5 +1,4 @@
 const core = require("@actions/core");
-const standardVersion = require("standard-version");
 const { exec } = require("child_process");
 
 // most @actions toolkit packages have async methods
@@ -10,13 +9,13 @@ async function run() {
       throw "Missing githubToken";
     }
     core.info("Create Bump");
-    const options = {};
+    let options = "";
     const prerelease = core.getInput("prerelease");
     if (prerelease) {
-      options["prerelease"] = prerelease;
+      options = options + `--prerelease ${prerelease} `;
     }
     core.info("Running standar version");
-    await standardVersion(options);
+    await exec(`npx standard-version ${options}`);
     core.info("Configuring git user and email...");
     await exec('git config --local user.email "action@github.com"');
     await exec('git config --local user.name "GitHub Action"');

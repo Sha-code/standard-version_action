@@ -41,7 +41,7 @@ jobs:
           fetch-depth: 0
           token: "${{ secrets.GITHUB_TOKEN }}"
       - name: Create bump and changelog
-        uses: Sha-code/standard-version_action@1.0.5
+        uses: Sha-code/standard-version_action@1.0.6
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 ```

@@ -38,7 +38,7 @@ PACKAGE_VERSION=$(cat package.json \
   | awk -F: '{ print $2 }' \
   | sed 's/[",]//g')
 PACKAGE_TYPE=$(echo $PACKAGE_VERSION | grep -o 'alpha\|beta\|rc')
-PACKAGE_TYPE=${PACKAGE_TYPE:-production}
+PACKAGE_TYPE=${PACKAGE_TYPE:-main}
 echo "::set-output name=version::$PACKAGE_VERSION"
 echo "::set-output name=type::$PACKAGE_TYPE"
 echo "Done."

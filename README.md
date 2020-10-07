@@ -42,7 +42,7 @@ jobs:
           token: "${{ secrets.GITHUB_TOKEN }}"
       - id: get_version
         name: Create bump and changelog
-        uses: Sha-code/standard-version_action@1.0.7
+        uses: Sha-code/standard-version_action@1.0.8
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - run: echo ${{ steps.get_version.outputs.version }}

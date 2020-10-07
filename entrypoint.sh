@@ -32,5 +32,12 @@ standard-version $INPUT_DRY_RUN $INPUT_CHANGELOG $INPUT_PRERELEASE
 echo "Pushing to branch..."
 remote_repo="https://${GITHUB_ACTOR}:${INPUT_GITHUB_TOKEN}@github.com/${REPOSITORY}.git"
 git push "${remote_repo}" HEAD:${INPUT_BRANCH} --follow-tags --tags;
-
+PACKAGE_VERSION=$(cat package.json \
+  | grep version \
+  | head -1 \
+  | awk -F: '{ print $2 }' \
+  | sed 's/[",]//g')
+PACKAGE_TYPE=${(echo $PACKAGE_VERSION | grep -o 'alpha\|beta\|rc'):-production}
+echo "::set-output name=release_version::$PACKAGE_VERSION"
+echo "::set-output name=release_type::$PACKAGE_TYPE"
 echo "Done."

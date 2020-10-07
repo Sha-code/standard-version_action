@@ -29,5 +29,7 @@ inputs:
     required: false
     default: "master"
 outputs:
-  version:
+  release_version:
     description: The generated version to output
+  release_type:
+    description: The generated type of version to output

@@ -40,10 +40,13 @@ jobs:
         with:
           fetch-depth: 0
           token: "${{ secrets.GITHUB_TOKEN }}"
-      - name: Create bump and changelog
+      - id: get_version
+        name: Create bump and changelog
         uses: Sha-code/standard-version_action@1.0.7
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+      - run: echo ${{ steps.get_version.outputs.version }}
+      - run: echo ${{ steps.get_version.outputs.type }}
 ```
 
 ## Variables
